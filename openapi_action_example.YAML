@@ -1,0 +1,215 @@
+openapi: 3.1.0
+info:
+  title: The title of your GPT's Action
+  description: The description of your action.
+  version: v1.0.0
+servers:
+  - url: https://theserverofwebhooks.com/webhook
+paths:
+  /create-file:
+    get:
+      description: Create File in GitHub repo
+      operationId: createFileGitHub
+      parameters:
+        - name: filename
+          in: query
+          description: this is the name of the creating file eg. test.ts or /src/test.ts
+          required: true
+          schema:
+            type: string
+        - name: repo-name
+          in: query
+          description: This is the name of the repo. have to be exact
+          required: true
+          schema:
+            type: string
+        - name: content
+          in: query
+          description: This is the body of the file. eg. <h1>test</h1>
+          required: true
+          schema:
+            type: string
+        - name: commit-message
+          in: query
+          description: This is the commit-message eg. change the h1 content
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File create successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      security:
+        - X-Auth-GitHub: []
+      deprecated: false
+  /get-file:
+    get:
+      description: Get File Content from GitHub repo
+      operationId: getFileGitHub
+      parameters:
+        - name: file-path
+          in: query
+          description: this is the file-path to get eg. test.ts or /src/test.ts
+          required: true
+          schema:
+            type: string
+        - name: repo-name
+          in: query
+          description: This is the name of the repo. have to be exact
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File create successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      security:
+        - X-Auth-GitHub: []
+      deprecated: false
+  /update-file:
+    get:
+      description: Update File Content from GitHub repo
+      operationId: updateFileGitHub
+      parameters:
+        - name: file-path
+          in: query
+          description: this is the file-path to get eg. test.ts or /src/test.ts
+          required: true
+          schema:
+            type: string
+        - name: repo-name
+          in: query
+          description: This is the name of the repo. have to be exact
+          required: true
+          schema:
+            type: string
+        - name: new-content
+          in: query
+          description: This is the new content to be place in the file
+          required: true
+          schema:
+            type: string
+        - name: commit-message
+          in: query
+          description: This is the commit message for the change
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File create successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      security:
+        - X-Auth-GitHub: []
+      deprecated: false
+  /delete-file:
+    get:
+      description: Delete File from GitHub repo
+      operationId: deleteFileGitHub
+      parameters:
+        - name: file-path
+          in: query
+          description: this is the file-path to delete eg. test.ts or /src/test.ts
+          required: true
+          schema:
+            type: string
+        - name: repo-name
+          in: query
+          description: This is the name of the repo. have to be exact
+          required: true
+          schema:
+            type: string
+        - name: commit-message
+          in: query
+          description: This is the commit message for the change
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File create successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      security:
+        - X-Auth-GitHub: []
+      deprecated: false
+  /list-dir:
+    get:
+      description: List directory in GitHub repo
+      operationId: listDirGitHub
+      parameters:
+        - name: path
+          in: query
+          description: this is the path to list
+          required: true
+          schema:
+            type: string
+        - name: repo-name
+          in: query
+          description: This is the name of the repo. have to be exact
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: File create successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+      security:
+        - X-Auth-GitHub: []
+      deprecated: false
+components:
+  securitySchemes:
+    X-Auth-GitHub:
+      type: apiKey
+      in: header
+      name: X-Aut-GitHub
+  schemas: {}
